@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTV-01 // WISHLIST MODULE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #BDD0DC;
+      --surface:  #C9DCEB;
+      --surface2: #B4C9D7;
+      --surface3: #A5BAC9;
+      --yellow:   #F5E200;
+      --black:    #111820;
+      --dark:     #1C2835;
+      --gray:     #5A7385;
+      --gray-lt:  #889EAD;
+      --white:    #EBF3F8;
+      --border:   rgba(17,24,32,.18);
+    }
+
+    body {
+      background: var(--bg);
+      background-image: radial-gradient(circle, rgba(17,24,32,.12) 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .hdr {
+      background: var(--black);
+      border-bottom: 3px solid var(--yellow);
+      flex-shrink: 0;
+    }
+    .hdr-main {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      align-items: stretch;
+    }
+    .hdr-id {
+      background: var(--yellow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 16px;
+      gap: 2px;
+    }
+    .hdr-id-lbl {
+      font-family: 'Space Mono', monospace;
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: rgba(17,24,32,.55);
+    }
+    .hdr-id-code {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      line-height: 1;
+      color: var(--black);
+    }
+    .hdr-center {
+      padding: 18px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .hdr-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+    }
+    .hdr-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .hdr-meta {
+      padding: 18px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      border-left: 1px solid rgba(255,255,255,.07);
+    }
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+    }
+    .meta-k {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      min-width: 52px;
+    }
+    .meta-v {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      color: var(--white);
+    }
+
+    .hdr-sub {
+      background: var(--dark);
+      padding: 7px 24px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .sub-node {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+    .sub-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--yellow);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sub-txt {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.38);
+      white-space: nowrap;
+    }
+    .sub-txt b { color: rgba(255,255,255,.65); font-weight: 400; }
+
+    /* ── MAIN ────────────────────────────────────── */
+    .main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 32px 60px;
+    }
+
+    .sec-hdr {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .sec-lbl {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: .12em;
+      color: var(--gray-lt);
+    }
+
+    /* ── GRID ────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    /* ── CARD ────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Yellow corner triangle */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 46px; height: 46px;
+      background: var(--yellow);
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Register marks */
+    .reg {
+      position: absolute;
+      z-index: 3;
+      width: 10px;
+      height: 10px;
+    }
+    .reg--tl { top: 6px; left: 6px; }
+    .reg--br { bottom: 6px; right: 6px; transform: rotate(180deg); }
+    .reg svg {
+      width: 10px; height: 10px;
+      stroke: rgba(17,24,32,.22);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: square;
+    }
+
+    /* Module badge */
+    .card-num {
+      position: absolute;
+      top: 8px; left: 8px;
+      z-index: 4;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 3px 8px;
+      line-height: 1.6;
+    }
+
+    /* Image container */
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface2);
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .55s cubic-bezier(.25,.46,.45,.94);
+    }
+    .card:hover .card-img img { transform: scale(1.04); }
+
+    /* Scanlines */
+    .card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(17,24,32,.016) 3px,
+        rgba(17,24,32,.016) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 16px 18px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-top: 2px solid rgba(17,24,32,.14);
+    }
+    .card-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .card-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      line-height: 1.02;
+      color: var(--black);
+    }
+    .card-bar {
+      width: 30px;
+      height: 2.5px;
+      background: var(--yellow);
+      margin: 3px 0 2px;
+    }
+    .card-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+    .price-lbl {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .price-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--black);
+      letter-spacing: .01em;
+    }
+    .price-cur {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: var(--gray);
+      letter-spacing: .05em;
+    }
+
+    /* Card footer */
+    .card-foot {
+      padding: 10px 18px;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 44px;
+    }
+    .card-sku {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .1em;
+      color: var(--gray-lt);
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--black);
+      color: var(--yellow);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 7px 13px;
+      transition: background .18s ease;
+      flex-shrink: 0;
+    }
+    .card-link:hover { background: var(--dark); }
+    .card-link svg {
+      width: 9px; height: 9px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    .ftr {
+      background: var(--black);
+      border-top: 2.5px solid var(--yellow);
+      padding: 10px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .ftr-left { display: flex; gap: 22px; }
+    .ftr-item {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+    .ftr-item b { color: rgba(255,255,255,.6); font-weight: 400; }
+    .ftr-status { display: flex; align-items: center; gap: 7px; }
+    .ftr-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .ftr-online {
+      font-family: 'Space Mono', monospace;
+      font-size: 7.5px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    /* ── IMAGE PLACEHOLDER ──────────────────────── */
+    .img-ph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: var(--surface2);
+      background-image:
+        linear-gradient(rgba(17,24,32,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17,24,32,.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .ph-icon {
+      width: 58px; height: 58px;
+      stroke: var(--gray);
+      fill: none;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: .7;
+    }
+    .ph-code {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .ph-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 7px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+    }
+
+    /* ── ALT QUEUE SECTION ───────────────────────── */
+    .alt-queue {
+      margin-top: 52px;
+    }
+    .alt-queue .sec-hdr {
+      margin-bottom: 28px;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .hdr-meta { display: none; }
+      .hdr-main { grid-template-columns: 100px 1fr; }
+      .main { padding: 24px 16px 48px; }
+      .hdr-sub { gap: 16px; overflow-x: auto; padding: 7px 16px; }
+      .ftr { padding: 10px 16px; }
+      .ftr-left { gap: 12px; }
+    }
+    @media (max-width: 560px) {
+      .hdr-name { font-size: 24px; }
+      .hdr-id-code { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────── -->
+<header class="hdr">
+  <div class="hdr-main">
+    <div class="hdr-id">
+      <span class="hdr-id-lbl">User Node</span>
+      <span class="hdr-id-code">RTV</span>
+    </div>
+    <div class="hdr-center">
+      <span class="hdr-eyebrow">Catalog System // Personal Module</span>
+      <span class="hdr-name">Victor — Wishlist</span>
+    </div>
+    <div class="hdr-meta">
+      <div class="meta-row">
+        <span class="meta-k">Date</span>
+        <span class="meta-v">2026.05.13</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Items</span>
+        <span class="meta-v">003</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Module</span>
+        <span class="meta-v">WL-01</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Status</span>
+        <span class="meta-v">ACTIVE</span>
+      </div>
+    </div>
+  </div>
+  <div class="hdr-sub">
+    <div class="sub-node">
+      <div class="sub-dot"></div>
+      <span class="sub-txt">Module: <b>WL-PRIMARY</b></span>
+    </div>
+    <div class="sub-node">
+      <div class="sub-dot"></div>
+      <span class="sub-txt">Access: <b>ReneTour</b></span>
+    </div>
+    <div class="sub-node">
+      <div class="sub-dot"></div>
+      <span class="sub-txt">Region: <b>CL-METRO</b></span>
+    </div>
+    <div class="sub-node">
+      <div class="sub-dot"></div>
+      <span class="sub-txt">Priority: <b>OPEN</b></span>
+    </div>
+    <div class="sub-node">
+      <div class="sub-dot"></div>
+      <span class="sub-txt">Rev: <b>1.7.0</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ─── MAIN ──────────────────────────── -->
+<main class="main">
+
+  <div class="sec-hdr">
+    <span class="sec-lbl">Items // Priority Queue</span>
+    <div class="sec-rule"></div>
+    <span class="sec-count">003 nodes</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- ── 01 · Helecho ── -->
+    <div class="card">
+      <div class="reg reg--tl">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="reg reg--br">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="card-num">01</div>
+
+      <div class="card-img">
+        <img
+          src="https://www.newenbotanicum.cl/cdn/shop/products/helecho01_3468x.jpg?v=1663125965"
+          alt="Helecho de la Vega"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="card-body">
+        <span class="card-cat">Botanica // Flora Nativa</span>
+        <span class="card-name">Helecho<br>de la Vega</span>
+        <div class="card-bar"></div>
+        <div class="card-price-row">
+          <span class="price-lbl">Val.</span>
+          <span class="price-val">$10.000</span>
+          <span class="price-cur">CLP</span>
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-sku">SKU // HLV-001 · Newenbotanicum</span>
+      </div>
+    </div>
+
+    <!-- ── 02 · Be Wood ── -->
+    <div class="card">
+      <div class="reg reg--tl">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="reg reg--br">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="card-num">02</div>
+
+      <div class="card-img">
+        <img
+          src="https://bekoko.cl/cdn/shop/products/BK-Producto-33_1800x.jpg?v=1645016042"
+          alt="Home Spray Aromatizante Be Wood"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="card-body">
+        <span class="card-cat">Bekoko // Home Spray</span>
+        <span class="card-name">Be<br>Wood</span>
+        <div class="card-bar"></div>
+        <div class="card-price-row">
+          <span class="price-lbl">Val.</span>
+          <span class="price-val">$6.990</span>
+          <span class="price-cur">CLP</span>
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-sku">SKU // BKK-WOOD</span>
+        <a
+          href="https://bekoko.cl/collections/home-spray/products/homespray-be-wood"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-link"
+        >
+          <svg viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          IR A TIENDA
+        </a>
+      </div>
+    </div>
+
+    <!-- ── 03 · Wild ── -->
+    <div class="card">
+      <div class="reg reg--tl">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="reg reg--br">
+        <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+      </div>
+      <div class="card-num">03</div>
+
+      <div class="card-img">
+        <img
+          src="https://bekoko.cl/cdn/shop/files/BK--HS-Wild200_3d8e14cf-a4f2-4184-a195-6505706c5bbf_1800x.jpg?v=1688396834"
+          alt="Home Spray Aromatizante Wild"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="card-body">
+        <span class="card-cat">Bekoko // Home Spray</span>
+        <span class="card-name">Wild</span>
+        <div class="card-bar"></div>
+        <div class="card-price-row">
+          <span class="price-lbl">Val.</span>
+          <span class="price-val">$6.990</span>
+          <span class="price-cur">CLP</span>
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-sku">SKU // BKK-WILD</span>
+        <a
+          href="https://bekoko.cl/collections/home-spray/products/home-spray-wild"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-link"
+        >
+          <svg viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          IR A TIENDA
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── ALTERNATIVE QUEUE ──────────────── -->
+  <div class="alt-queue">
+
+    <div class="sec-hdr">
+      <span class="sec-lbl">Items // Alternative Queue</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">001 node</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- ── 04 · ATH-M50x ── -->
+      <div class="card">
+        <div class="reg reg--tl">
+          <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+        </div>
+        <div class="reg reg--br">
+          <svg viewBox="0 0 10 10"><polyline points="0,7 0,0 7,0"/></svg>
+        </div>
+        <div class="card-num">04</div>
+
+        <div class="card-img">
+          <img
+            src="https://b2811249.smushcdn.com/2811249/wp-content/uploads/2020/12/ath-m50x_01-400x400.png?lossy=1&strip=1&webp=1"
+            alt="Audio-Technica ATH-M50x"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="card-body">
+          <span class="card-cat">Audio-Technica // Studio Monitor</span>
+          <span class="card-name">ATH-M50x</span>
+          <div class="card-bar"></div>
+          <div class="card-price-row">
+            <span class="price-lbl">Val.</span>
+            <span class="price-val">—</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <span class="card-sku">SKU // ATH-M50X · Blupoint</span>
+          <a
+            href="https://www.blupointmusic.cl/producto/audio-technica-athm50x-audifonos-de-estudio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-link"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            IR A TIENDA
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────── -->
+<footer class="ftr">
+  <div class="ftr-left">
+    <span class="ftr-item">Module: <b>WL-PRIMARY</b></span>
+    <span class="ftr-item">User: <b>VICTOR</b></span>
+    <span class="ftr-item">Rev: <b>1.7.0</b></span>
+    <span class="ftr-item">Items: <b>003</b></span>
+  </div>
+  <div class="ftr-status">
+    <div class="ftr-dot"></div>
+    <span class="ftr-online">SYSTEM ONLINE</span>
+  </div>
+</footer>
+
+</body>
+</html>
