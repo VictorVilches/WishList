@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Secretos / credenciales — NUNCA subir
+.htpasswd
+.env
+config.php
+wp-config.php
+*.sql
+*.log
+
+# Dependencias
+/vendor/
